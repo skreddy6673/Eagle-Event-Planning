@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<script src="angular.min.js"></script>
+<script src="sharedservice.js"></script>
+
+<script src="js/dualmultiselect.js"></script>
+
+<script src="addsingleguest.js"></script>
+<script src="js/jquery.js"></script>
+
+<script src="js/bootstrap.js"></script>
+<script src="js/bootbox.min.js"></script>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="bootstrap.css">
+<link rel="stylesheet" href="dualmultiselect.css">
+
+
+<style type="text/css">
+.table-responsive {
+	max-height: 300px;
+}
+</style>
+
+</head>
+<body ng-controller="singleGuestCtrl">
+
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-lg-12">
+				<div class="col-lg-10 col-lg-offset-1" style="margin-top: 50px;">
+
+
+					<div class="row">
+
+						<div class="table-responsive col-xs-6 col-xs-offset-3"
+							style="margin-top: 15px;">
+
+							<div class="col-xs-6">
+								<h4>Event Name : {{showingevent.name}}</h4>
+							</div>
+							<div class="col-xs-6"></div>
+							<h4>Customer Name : {{showingevent.customername}}</h4>
+						</div>
+
+					</div>
+
+					<div class="row">
+
+						<div class="col-xs-11 col-xs-offset-1">
+
+
+
+							<h4>Add Single Guest</h4>
+
+							<!-- panel-footer -->
+							<form class="form-horizontal">
+
+								<div class="col-xs-5 nopad">
+									<div class="col-xs-4" style="width: 31.0%">
+										<div>
+											<label class="">First Name:</label>
+										</div>
+									</div>
+									<div class="col-xs-8 nopad">
+										<div>
+
+											<input class="form-control col-lg-6" type="text"
+												ng-model="firstname" placeholder="First Name">&ensp;
+										</div>
+									</div>
+								</div>
+
+								<div class="col-xs-5 nopad">
+
+									<div class="col-xs-4" style="width: 30.333333%">
+										<div>
+											<label class="">Last Name:</label>
+										</div>
+									</div>
+									<div class="col-xs-8 nopad">
+										<div>
+
+											<input class="form-control col-lg-6" type="text"
+												ng-model="lastname" placeholder="Last Name">&ensp;
+										</div>
+									</div>
+
+								</div>
+
+								<div class="col-xs-2 hide">
+									<div>
+										<div class="btn" ng-click="fetchGuests();">Submit</div>
+
+									</div>
+								</div>
+							</form>
+
+						</div>
+
+					</div>
+
+
+					<div class="row" style="margin-top: 30px;">
+
+						<div class="col-xs-11 col-xs-offset-1">
+
+							<div class="col-xs-6">
+								<dualmultiselect options="sitwithOptions"> </dualmultiselect>
+							</div>
+
+
+							<div class="col-xs-6">
+								<dualmultiselect options="notsitwithOptions">
+								</dualmultiselect>
+							</div>
+
+						</div>
+
+
+					</div>
+
+
+					<div class="row col-xs-offset-1" style="margin-top: 15px;">
+
+						<div class="btn" ng-click="addGuest();">Submit</div>
+					</div>
+
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+</body>
+</html>

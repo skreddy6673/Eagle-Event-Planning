@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<script src="angular.min.js"></script>
+<script src="sharedservice.js"></script>
+
+<script src="js/jquery.js"></script>
+
+<script src="js/bootstrap.js"></script>
+<script src="js/bootbox.min.js"></script>
+
+<script src="guests.js"></script>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="bootstrap.css">
+
+<style type="text/css">
+.table-responsive {
+	max-height: 300px;
+}
+</style>
+
+</head>
+<body ng-controller="guestsCtrl">
+
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-lg-12">
+				<div class="col-lg-10 col-lg-offset-1" style="margin-top: 50px;">
+
+
+
+					<div class="row">
+
+						<div class="col-xs-6 col-xs-offset-3">
+							<h4>Select Event</h4>
+
+							<!-- panel-footer -->
+							<form class="form-horizontal">
+
+								<div class="col-xs-2">
+									<div>
+										<label class="col-lg-3">Event:</label>
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div>
+										<select class="form-control col-lg-6" ng-model="eventid" id=""
+											name="selectedevent">
+											<option value="{{evnt.id}}" ng-repeat="evnt in evnts">{{evnt.name}}</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col-xs-3">
+									<div>
+										<div class="btn" ng-click="fetchGuests();">Submit</div>
+
+									</div>
+								</div>
+							</form>
+
+						</div>
+
+					</div>
+
+
+					<div class="row">
+
+						<div class="table-responsive col-xs-6 col-xs-offset-3"
+							style="margin-top: 15px;">
+
+							<div class="col-xs-6">
+								<h4>Event Name : {{showingevent.name}}</h4>
+							</div>
+							<div class="col-xs-6"></div>
+							<h4>Customer Name : {{showingevent.customername}}</h4>
+						</div>
+
+					</div>
+
+					<div class="row">
+
+						<div class="table-responsive col-xs-6 col-xs-offset-3"
+							style="margin-top: 20px;">
+							<table class="table-fixed" style="width: 100%;">
+
+								<thead>
+									<tr>
+										<td style="background: #4E5066"></td>
+										<td style="background: #4E5066">First Name</td>
+										<td style="background: #4E5066">Last Name</td>
+
+									</tr>
+								</thead>
+
+								<tbody>
+									<tr ng-repeat="guest in guests | filter : addsrch">
+
+										<td><input type="radio" name="selectedguestindex"
+											ng-model="selectedguestindex" value="{{$index}}" /></td>
+										<td>{{guest.firstname}}</td>
+										<td>{{guest.lastname}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="row">
+
+						<div class="col-xs-8 col-xs-offset-3" style="margin-top: 30px;">
+							<fieldset>
+								<legend style="color: white;">Options:</legend>
+								<!-- panel-footer -->
+								<div class="col-xs-4" style="margin-top: 5px;">
+									<div>
+										<input type="button" class="btn btn-default"
+											ng-click="addSingleGuest();" value="Add Single Guest" />
+									</div>
+								</div>
+
+								<div class="col-xs-2" style="margin-top: 5px;">
+									<div>
+										<input type="button" class="btn btn-default"
+											ng-click="editSingleGuest();" value="Update" />
+									</div>
+								</div>
+
+
+								<div class="col-xs-2" style="margin-top: 5px;">
+									<div>
+										<input type="button" class="btn btn-danger"
+											ng-click="deleteSingleGuest();" value="Delete" />
+									</div>
+								</div>
+
+							</fieldset>
+
+
+
+						</div>
+					</div>
+
+					<div class="row" style="margin-top: 35px; margin-bottom: 35px;">
+						<div class="col-xs-8 col-xs-offset-3">
+							<form>
+								<fieldset>
+									<legend style="color: white;">Import File:</legend>
+									<div>
+										<input type="hidden" ng-model="eventid" value="{{eventid}}" />
+										<label class="col-xs-2"
+											style="display: inline; margin-top: 10px;">Import</label> <input
+											file="file" ng-model="file" type="file"
+											class="btn btn-primary col-xs-5" style="display: inline;"
+											value="Import Guest list" /> <input type="submit"
+											class="btn btn-default" ng-click="uploaddata();"
+											value="Submit" />
+									</div>
+									<label ng-show="loading">Loading..</label>
+								</fieldset>
+							</form>
+
+						</div>
+					</div>
+
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+</body>
+</html>

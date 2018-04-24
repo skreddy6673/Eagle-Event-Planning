@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<script src="angular.min.js"></script>
+<script src="ang.js"></script>
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet" href="bootstrap.css">
+
+</head>
+<body ng-controller="myCtrl">
+
+
+	<div class="container">
+
+		<div class="row" ng-show="eventslist">
+
+			<div class="col-lg-12">
+				<div class="col-lg-10 col-lg-offset-1" style="margin-top: 50px;">
+				
+				    <h4>Events List</h4>
+				
+					<input class="search" type="text" ng-model="addsrch"
+						placeholder="Search"> <br> <br>
+					<table class="table-fill">
+						<tr>
+							<td style="background: #4E5066"></td>
+							<td style="background: #4E5066">Event ID</td>
+							<td style="background: #4E5066">Event Name</td>
+							<td style="background: #4E5066">Event Manager</td>
+							<td style="background: #4E5066">Date</td>
+							<td style="background: #4E5066">Venue</td>
+							<td style="background: #4E5066">Empty Chairs</td>
+							<td style="background: #4E5066">Chairs Per table</td>
+							<td style="background: #4E5066">Customer Name</td>
+
+						</tr>
+						<tr ng-repeat="evnt in evnts | filter : addsrch">
+							<td><input type="radio" name="selectedcid"
+								ng-model="selectedcid" value="{{$index}}" /></td>
+
+							<td>{{evnt.id}}</td>
+							<td>{{evnt.name}}</td>
+							<td>{{evnt.man}}</td>
+
+							<td>{{evnt.date}}</td>
+							<td>{{evnt.venue}}</td>
+							<td>{{evnt.tablesize}}</td>
+							<td>{{evnt.chairspertable}}</td>
+							<td>{{evnt.customername}}</td>
+
+						</tr>
+					</table>
+
+					<div style="margin-top: 50px;">
+						<div class="btn" ng-click="addEventForm()">Add</div>
+						&ensp;
+						<div class="btn" ng-click="updateEventForm()">update</div>
+						&ensp;
+						<div class="btn" ng-click="delEvnt()">Delete</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="row" ng-show="!eventslist">
+			<div class="col-lg-12">
+				<div class="col-lg-6 col-lg-offset-3" style="margin-top: 50px;">
+								    <h4 ng-show="insertmode">Add Event</h4>
+								    <h4 ng-show="!insertmode">Update Event</h4>
+				
+					<form>
+						<div class="hide">
+							<label>Event ID:</label> <input class="nw form-control hide"
+								type="number" ng-model="evid" placeholder="Event ID" value="0">&ensp;
+
+						</div>
+
+						<div class="">
+							<label>Event Name:</label> <input class="nw form-control"
+								type="text" ng-model="evname" placeholder="Event Name">&ensp;
+						</div>
+
+
+
+						<div class="">
+							<label>Manager:</label>
+							
+							
+							 <select class="form-control"
+								ng-model="evman" id="">
+								<option value="{{user.name}}" ng-repeat="user in users">{{user.name}}</option>
+							</select>&emsp;
+						</div>
+
+
+						<div class="">
+							<label>Customer:</label> <select class="form-control"
+								ng-model="evcus" id="">
+								<option value="{{cust.cid}}" ng-repeat="cust in custs">{{cust.cname}}</option>
+							</select>&emsp;
+						</div>
+
+
+						<div class="">
+							<label>Date:</label> <input class="nw form-control"
+								type="date" ng-model="evdate" placeholder="Date">&ensp;
+						</div>
+
+
+						<div class="hide">
+							<label>Time:</label> <input class="nw form-control" type="time"
+								ng-model="evtime" placeholder="Time">&ensp;
+						</div>
+
+
+						<div class="">
+							<label>Venue:</label> <input class="nw form-control" type="text"
+								ng-model="evvenue" placeholder="Venue">&ensp;
+						</div>
+
+						<div class="">
+							<label>Empty Chairs:</label> <input class="nw form-control"
+								type="number" ng-model="evtablesize" placeholder="Empty Chairs">&ensp;
+						</div>
+
+						<div class="">
+							<label>Chairs Per Table:</label> <input class="nw form-control"
+								type="number" ng-model="evchairspertable"
+								placeholder="Chairs Per Table">&ensp;
+						</div>
+
+
+
+					</form>
+					&ensp;
+
+					<div class="btn" ng-click="insertEvnt()" ng-show="insertmode">Submit</div>
+					&ensp;
+
+					<div class="btn" ng-click="updateEvnt()" ng-show="!insertmode">Submit</div>
+					&ensp;
+
+					<div class="btn" ng-click="showEventsList()">Cancel</div>
+
+
+					<br> <br>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

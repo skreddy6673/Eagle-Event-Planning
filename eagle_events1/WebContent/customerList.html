@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<script src="angular.min.js"></script>
+<script src="ang.js"></script>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet"
+	href="bootstrap.css">
+
+</head>
+<body ng-controller="myCtrl">
+
+	<div class="container">
+
+		<div class="row" ng-show="customerslist">
+
+			<div class="col-lg-12">
+				<div class="col-lg-8 col-lg-offset-2" style="margin-top: 50px;">
+
+                     <h4>Customers List</h4>
+
+					<input class="search" type="text" ng-model="addsrch"
+						placeholder="Search"> <br> <br>
+					<table class="table-fill">
+						<tr>
+						    
+							<td style="background: #4E5066"></td>
+							<td style="background: #4E5066">Customer ID</td>
+							<td style="background: #4E5066">Customer Name</td>
+							<td style="background: #4E5066">Email</td>
+							<td style="background: #4E5066">Phone</td>
+						</tr>
+						<tr ng-repeat="cust in custs | filter : addsrch">
+						   <td> <input type="radio" name="selectedcid" ng-model="selectedcid" value="{{$index}}"/> </td>
+						
+							<td>{{cust.cid}}</td>
+							<td>{{cust.cname}}</td>
+							<td>{{cust.email}}</td>
+							<td>{{cust.phone}}</td>
+						</tr>
+					</table>
+
+					<div style="margin-top: 35px;">
+						<div class="btn" ng-click="addCustomerForm()">Add</div>
+						&ensp;
+						<div class="btn" ng-click="updateCustomerForm()">Update</div>
+						&ensp;
+						<div class="btn" ng-click="delCust()">Delete</div>
+					</div>
+					<br> <br>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div class="row" ng-show="!customerslist">
+		<div class="col-lg-12">
+			<div class="col-lg-6 col-lg-offset-3" style="margin-top: 50px;">
+				<form>
+
+                         <h4 ng-show="insertmode">Add Customer</h4>
+								    <h4 ng-show="!insertmode">Update Customer</h4>
+                    
+					<div class="hide">
+					
+						<label>Customer ID:</label> <input class="nw form-control"
+							type="number" ng-model="cid" placeholder="Customer ID">&ensp;
+					</div>
+
+					<div class="">
+						<label>Customer Name:</label> <input class="nw form-control"
+							type="text" ng-model="cname" placeholder="Customer Name">&ensp;
+					</div>
+					
+                   <div class="">
+						<label>Email:</label> <input class="nw form-control"
+							type="email" ng-model="cemail" placeholder="Email">&ensp;
+					</div>
+					
+					<div class="">
+						<label>Phone:</label> <input class="nw form-control" type="text"
+							ng-model="cphone" placeholder="Phone">&ensp;
+					</div>					
+
+					
+					
+
+				</form>
+
+
+
+				<div class="btn" ng-click="insertCust()" ng-show="insertmode">Submit</div>
+				&ensp;
+				
+				<div class="btn" ng-click="updateCust()" ng-show="!insertmode">Submit</div>
+				&ensp;
+				
+				<div class="btn" ng-click="showCustomersList()">Cancel</div>
+				<br> <br>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

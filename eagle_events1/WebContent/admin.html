@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<script src="angular.min.js"></script>
+<script src="ang.js"></script>
+<link rel="stylesheet" href="style.css">
+<title>Eagle Events</title>
+</head>
+<body ng-controller="myCtrl">
+	<div id='cssmenu'>
+		<ul>
+			<li class="{{(url==='addUser.html')?'active':''}}"
+				ng-click="setURL('addUser.html')"><a href='#'>Employees</a></li>
+			<li class="{{(url==='customerList.html')?'active':''}}"
+				ng-click="setURL('customerList.html')"><a href='#'>Customers</a></li>
+			<li class="{{(url==='addEvnts.html')?'active':''}}"
+				ng-click="setURL('addEvnts.html')"><a href='#'>Events</a></li>
+			<li class="{{(url==='seating.html')?'active':''}}"
+				ng-click="setURL('seating.html')"><a href='#'>Seating</a></li>
+
+			<li class="{{(url==='guests.html')?'active':''}}"
+				ng-click="setURL('guests.html')"><a href='#'>Guests</a></li>
+
+
+			<li class="{{(url==='guestcards.html')?'active':''}}"
+				ng-click="setURL('guestcards.html')"><a href='#'>Guest Cards</a></li>
+
+			<li ng-click="logout()"><a href='index.html'>Logout</a></li>
+		</ul>
+	</div>
+	<iframe src="{{url}}"></iframe>
+</body>
+</html>

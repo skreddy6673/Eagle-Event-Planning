@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<script src="angular.min.js"></script>
+<script src="sharedservice.js"></script>
+
+
+<script src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jspdf.debug.js">
+	
+</script>
+<script type="text/javascript" src="js/html2canvas.min.js">
+	
+</script>
+<script src="guests.js"></script>
+
+
+<script src="js/bootstrap.js"></script>
+<script src="js/bootbox.min.js"></script>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="bootstrap.css">
+<link rel="stylesheet" href="dualmultiselect.css">
+
+
+
+
+
+<script>
+	$(document)
+			.ready(
+					function() {
+						var form = $('#guestschart'), cache_width = form
+								.width(), a4 = [ 595.28, 841.89 ]; // for a4 size paper width and height
+						console.log('abc');
+
+						function createPdf() {
+
+							console.log('abc');
+							form = $('#guestschart'), cache_width = form
+									.width(), a4 = [ 595.28, 841.89 ];
+							$('body').scrollTop(0);
+							createPDF();
+						}
+
+						$('#create_pdf').on('click', function() {
+
+						});
+						//create pdf
+						function createPDF() {
+							getCanvas()
+									.then(
+											function(canvas) {
+												var img = canvas
+														.toDataURL("image/png"), doc = new jsPDF(
+														{
+															unit : 'px',
+															format : 'a4'
+														});
+												doc.addImage(img, 'JPEG', 20,
+														20);
+												doc
+														.save('techumber-html-to-pdf.pdf');
+												form.width(cache_width);
+											});
+						}
+
+						// create canvas object
+						function getCanvas() {
+							form.width((a4[0] * 1.33333) - 80).css('max-width',
+									'none');
+							return html2canvas(form, {
+								imageTimeout : 2000,
+								removeContainer : true
+							});
+						}
+
+					}());
+</script>
+
+<style type="text/css">
+.table-responsive {
+	max-height: 300px;
+}
+</style>
+
+</head>
+<body ng-controller="guestsCtrl">
+
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-lg-12">
+				<div class="col-lg-10 col-lg-offset-1" style="margin-top: 50px;">
+					<div class="row">
+						<div class="col-xs-6 col-xs-offset-3">
+							<h4>Select Event</h4>
+							<!-- panel-footer -->
+							<form class="form-horizontal">
+
+								<div class="col-xs-2">
+									<div>
+										<label class="col-lg-3">Event:</label>
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div>
+										<select class="form-control col-lg-6" ng-model="eventid" id=""
+											name="selectedevent">
+											<option value="{{evnt.id}}" ng-repeat="evnt in evnts">{{evnt.name}}</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col-xs-3">
+									<div>
+										<div class="btn" ng-click="fetchGuests();">Submit</div>
+
+									</div>
+								</div>
+							</form>
+
+						</div>
+
+					</div>
+
+
+					<div class="row" style="margin-top: 30px;">
+						<div class="col-lg-8 col-lg-offset-2">
+							<button type="button" class="btn btn-primary" id="create_pdf"
+								ng-click="printPdf();">Save</button>
+
+							<div class="input-group pull-right hide"
+								style="float: right; width: 300px;">
+								<input type="text" class="form-control" id="to"
+									placeholder="Enter email address" style="margin-top: 4px;">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button"
+										onclick="sendemail()">Email!</button>
+								</span>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div id="guestschart">
+
+							<div>
+								<h4>{{eventname}}</h4>
+
+
+								<div class="row">
+									<div ng-repeat="guest in guests">
+										<div class="clearfix" ng-if="$index % 4 == 0"></div>
+										<div class="col-sm-3" style="margin-top: 15px;">
+
+											<div class="panel panel-primary">
+												<div class="panel-heading">{{guest.firstname}}</div>
+												<div class="panel-body">{{guest.lastname}}</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+</body>
+</html>

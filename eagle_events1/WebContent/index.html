@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<script src="angular.min.js"></script>
+<script src="ang.js"></script>
+<link rel="stylesheet" href="login.css">
+<title>Eagle Events</title>
+</head>
+<body ng-controller="myCtrl">
+
+	<div class="login">
+		<h1>Login</h1>
+		<form method="post">
+			<input type="text" placeholder="Username" ng-model="Name" /> <input
+				type="password" placeholder="Password" ng-model="pass" />
+			<button ng-click="validate()"
+				class="btn btn-primary btn-block btn-large">Let me in.</button>
+		</form>
+	</div>
+	<div class="error {{ err ? 'active' : 'inactive' }}">
+		<h3 class="errorm">Incorrect Password....</h3>
+	</div>
+</body>
+</html>

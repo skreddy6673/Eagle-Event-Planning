@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<script src="angular.min.js"></script>
+<script src="ang.js"></script>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="bootstrap.css">
+
+</head>
+<body ng-controller="myCtrl">
+
+	<div class="container">
+
+		<div class="row" ng-show="userslist">
+
+			<div class="col-lg-12">
+				<div class="col-lg-8 col-lg-offset-2" style="margin-top: 50px;">
+					<input class="search" type="text" ng-model="addsrch"
+						placeholder="Search"> <br> <br>
+					<h4>Employees List</h4>
+
+					<table class="table-fill">
+						<tr>
+							<td style="background: #4E5066"></td>
+							<td style="background: #4E5066">Employe ID</td>
+							<td style="background: #4E5066">Employee Name</td>
+							<td style="background: #4E5066">Salary</td>
+							<td style="background: #4E5066">Designation</td>
+							<td style="background: #4E5066">Password</td>
+							<td style="background: #4E5066">Email</td>
+						</tr>
+						<tr ng-repeat="user in users | filter : addsrch">
+							<td><input type="radio" name="selectedcid"
+								ng-model="selectedcid" value="{{$index}}" /></td>
+							<td>{{user.eid}}</td>
+							<td>{{user.name}}</td>
+							<td>{{user.sal}}</td>
+							<td>{{user.desig}}</td>
+							<td>{{user.pass}}</td>
+							<td>{{user.email}}</td>
+						</tr>
+					</table>
+
+					<div>
+						<div class="btn" ng-click="addUserForm()">Add</div>
+						&ensp;
+						<div class="btn" ng-click="updateUserForm()">update</div>
+						&ensp;
+						<div class="btn" ng-click="del()">Delete</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row" ng-show="!userslist">
+			<div class="col-lg-12">
+				<div class="col-lg-6 col-lg-offset-3" style="margin-top: 50px;">
+					<h4 ng-show="insertmode">Add Employee</h4>
+					<h4 ng-show="!insertmode">Update Employee</h4>
+					<form>
+						<div class="hide">
+							<label>Employee ID:</label> <input class="nw form-control"
+								type="number" ng-model="eid" placeholder="Employee ID">&ensp;
+						</div>
+
+						<div class="">
+							<label>Employee Name:</label> <input class="nw form-control"
+								type="text" ng-model="name" placeholder="Employee Name">&ensp;
+						</div>
+						
+						<div class="">
+							<label>Email:</label> <input class="nw form-control"
+								type="email" ng-model="email" placeholder="Email">&ensp;
+						</div>
+
+						<div class="">
+							<label>Salary:</label> <input class="nw form-control"
+								type="number" ng-model="sal" placeholder="Salary">&ensp;
+						</div>
+
+						<div class="">
+							<label>Designation:</label> <select class="form-control"
+								ng-model="desig" id="">
+								<option value="admin">Admin</option>
+								<option value="employee">Employee</option>
+							</select>
+
+						</div>
+
+						<div class="">
+							<label>Password:</label> <input class="nw form-control"
+								type="text" ng-model="pass" placeholder="Password">
+						</div>
+						<br>
+					</form>
+
+
+					<br>
+					<div class="btn" ng-click="insert()" ng-show="insertmode">Add</div>
+					&ensp;
+					<div class="btn" ng-click="update()" ng-show="!insertmode">update</div>
+					&ensp;
+					<div class="btn" ng-click="showUsersList()">Cancel</div>
+					<br> <br>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>

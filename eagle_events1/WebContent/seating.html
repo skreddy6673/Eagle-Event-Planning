@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<script src="angular.min.js"></script>
+<script src="seating.js"></script>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="bootstrap.css">
+<script src="js/jquery.js"></script>
+
+<script src="js/jspdf.debug.js"></script>
+
+
+
+<style type="text/css">
+.table-responsive {
+	max-height: 300px;
+}
+</style>
+
+
+
+</head>
+<body ng-controller="seatingCtrl">
+
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-lg-12">
+				<div class="col-lg-10 col-lg-offset-1" style="margin-top: 50px;">
+
+
+
+					<div class="row">
+
+						<div class="col-xs-10 col-xs-offset-2">
+							<h4>Select Event</h4>
+
+							<!-- panel-footer -->
+							<form class="form-horizontal">
+
+								<div class="col-xs-4 nopad">
+
+									<div class="col-xs-3 nopad">
+										<div>
+											<label class="col-lg-3">Event:</label>
+										</div>
+									</div>
+									<div class="col-xs-9">
+										<div>
+											<select class="form-control col-lg-6" ng-model="eventid"
+												id="" name="selectedevent">
+												<option value="{{evnt.id}}" ng-repeat="evnt in evnts">{{evnt.name}}</option>
+											</select>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="col-xs-4 nopad">
+
+									<div class="col-xs-3 nopad">
+										<div>
+											<label class="col-lg-3">Order:</label>
+										</div>
+									</div>
+									<div class="col-xs-9">
+										<div>
+											<select class="form-control col-lg-6" ng-model="order" id=""
+												name="selectedorder">
+												<option value="table">Table</option>
+												<option value="name">Name</option>
+											</select>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="col-xs-2">
+									<div>
+										<div class="btn" ng-click="getSeatingArragement();">Submit</div>
+
+									</div>
+								</div>
+							</form>
+
+						</div>
+
+						<div id="editor"></div>
+
+					</div>
+
+
+
+					<div class="row" style="margin-top: 30px;"
+						ng-show="orderbytable || orderbyname">
+						<div class="col-lg-8 col-lg-offset-2">
+							<button type="button" class="btn btn-primary" id="print"
+								ng-click="printDiv('seatingchart');">Save</button>
+
+							<div class="input-group pull-right hide"
+								style="float: right; width: 300px;">
+								<input type="text" class="form-control" id="to"
+									placeholder="Enter email address" style="margin-top: 4px;">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button"
+										onclick="sendemail()">Email!</button>
+								</span>
+							</div>
+						</div>
+					</div>
+
+					<div id="seatingchart">
+
+						<div class="row" ng-show="orderbytable || orderbyname" align="center">
+
+							<div class="table-responsive"
+								style="margin-top: 15px;">
+
+								<div class="col-xs-6">
+									<h4>Event Name : {{showingevent.name}}</h4>
+								</div>
+								<div class="col-xs-6"></div>
+								<h4>Customer Name : {{showingevent.customername}}</h4>
+							</div>
+
+						</div>
+
+						<div ng-if="orderbytable">
+							<h4>{{eventname}}</h4>
+
+
+							<div class="row">
+								<div ng-repeat="eventseating in eventseatings">
+									<div class="clearfix" ng-if="$index % 4 == 0"></div>
+									<div class="col-sm-3" style="margin-top: 15px;">
+										<h4>
+											<u>Table {{eventseating.tableno}}</u>
+										</h4>
+										<ul class="list-unstyled">
+											<li ng-repeat="guest in eventseating.guests"><i>{{guest.firstname}}
+													{{guest.lastname}}</i></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div ng-if="orderbyname">
+							<h4>{{eventname}}</h4>
+
+
+							<div class="row">
+								<div ng-repeat="eventseating in eventseatings">
+									<div class="clearfix" ng-if="$index % 4 == 0"></div>
+									<div class="col-sm-3" style="margin-top: 15px;">
+										<h4>
+											<u>{{eventseating.alphabet}}</u>
+										</h4>
+										<ul class="list-unstyled">
+											<li ng-repeat="guest in eventseating.guests"><i>{{guest.firstname}}
+													{{guest.lastname}}</i> <span class="pull-right">{{guest.tableNumber}}</span></li>
+
+
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+</body>
+</html>
